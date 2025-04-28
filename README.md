@@ -93,20 +93,20 @@ import SecureScreenSDK
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    private lazy var SecureScreenSDK = { return SecureScreenSDK(window: window) }()
+    private lazy var secureScreenSDK = { return SecureScreenSDK(window: window) }()
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        SecureScreenSDK.configurePreventionScreenshot()
+        secureScreenSDK.configurePreventionScreenshot()
         return true
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        SecureScreenSDK.enabledPreventScreenshot()
+        secureScreenSDK.enabledPreventScreenshot()
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
-        SecureScreenSDK.disablePreventScreenshot()
+        secureScreenSDK.disablePreventScreenshot()
     }
 }
 ```
@@ -114,33 +114,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 #### Blur Background
 ```swift
 func applicationWillResignActive(_ application: UIApplication) {
-    SecureScreenSDK.enabledBlurScreen()
+    secureScreenSDK.enabledBlurScreen()
 }
 
 func applicationDidBecomeActive(_ application: UIApplication) {
-    SecureScreenSDK.disableBlurScreen()
+    secureScreenSDK.disableBlurScreen()
 }
 ```
 
 #### Color Overlay
 ```swift
 func applicationWillResignActive(_ application: UIApplication) {
-    SecureScreenSDK.enabledColorScreen(color: .black)
+    secureScreenSDK.enabledColorScreen(color: .black)
 }
 
 func applicationDidBecomeActive(_ application: UIApplication) {
-    SecureScreenSDK.disableColorScreen()
+    secureScreenSDK.disableColorScreen()
 }
 ```
 
 #### Image Overlay
 ```swift
 func applicationWillResignActive(_ application: UIApplication) {
-    SecureScreenSDK.enabledImageScreen(image: UIImage(named: "LaunchImage"))
+    secureScreenSDK.enabledImageScreen(image: UIImage(named: "LaunchImage"))
 }
 
 func applicationDidBecomeActive(_ application: UIApplication) {
-    SecureScreenSDK.disableImageScreen()
+    secureScreenSDK.disableImageScreen()
 }
 ```
 
@@ -166,7 +166,7 @@ This ensures all views are protected from launch without needing AppDelegate or 
 ```swift
 @main
 struct MySecureApp: App {
-    private let SecureScreenSDK = SecureScreenSDK(window:
+    private let secureScreenSDK = SecureScreenSDK(window:
         UIApplication.shared.connectedScenes
             .compactMap { $0 as? UIWindowScene }
             .flatMap { $0.windows }
@@ -176,11 +176,11 @@ struct MySecureApp: App {
         WindowGroup {
             ContentView()
                 .onAppear {
-                    SecureScreenSDK.configurePreventionScreenshot()
-                    SecureScreenSDK.enabledPreventScreenshot()
+                    secureScreenSDK.configurePreventionScreenshot()
+                    secureScreenSDK.enabledPreventScreenshot()
                 }
                 .onDisappear {
-                    SecureScreenSDK.disablePreventScreenshot()
+                    secureScreenSDK.disablePreventScreenshot()
                 }
         }
     }
@@ -189,7 +189,7 @@ struct MySecureApp: App {
 
 #### Check screen recording
 ```swift
-let isRecording = SecureScreenSDK.screenIsRecording()
+let isRecording = secureScreenSDK.screenIsRecording()
 ```
 
 ---
